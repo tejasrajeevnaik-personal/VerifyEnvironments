@@ -19,21 +19,28 @@ def login(request):
     DriverFactory.close_driver(driver)
 
 
+@pytest.mark.display_name("Okta login - DEV env")
 def test_dev(login):
     okta_login(login,
                "dev",
                Config.dev_url)
 
+
+@pytest.mark.display_name("Okta login - DEV-INT env")
 def test_dev_int(login):
     okta_login(login,
                "dev-int",
                Config.dev_int_url)
 
+
+@pytest.mark.display_name("Okta login - STAGING env")
 def test_staging(login):
     okta_login(login,
                "staging",
                Config.staging_url)
 
+
+@pytest.mark.display_name("Okta login - TEST env")
 def test_test(login):
     okta_login(login,
                "test",

@@ -9,7 +9,7 @@ from methods.methods_base import MethodsBase
 class MethodsExternalUserLogin(MethodsBase):
     def input_user_id_textbox(self, user_id) -> None:
         # Input User Id
-        (
+        user_id_textbox = (
             WebDriverWait(self.driver, 10)
             .until(EC.presence_of_element_located((By.CSS_SELECTOR, "main-element")))
             .shadow_root
@@ -18,8 +18,9 @@ class MethodsExternalUserLogin(MethodsBase):
             .find_element(By.CSS_SELECTOR, "jha-form-text-input[data-auto-id='userIdInput']")
             .shadow_root
             .find_element(By.CSS_SELECTOR, "input[aria-label='User ID']")
-            .send_keys(user_id)
         )
+        user_id_textbox.clear()
+        user_id_textbox.send_keys(user_id)
 
     def input_password_textbox(self, password) -> None:
         # Input Password
