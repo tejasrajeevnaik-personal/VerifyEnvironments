@@ -40,11 +40,12 @@ class MethodsOktaLogin(MethodsBase):
 
     def input_jh_email_address_textbox(self) -> None:
         # Input JH email address
-        (
+        jh_email_address_textbox = (
             WebDriverWait(self.driver, 10)
             .until(EC.presence_of_element_located((By.CSS_SELECTOR, "input[autocomplete='username']")))
-            .send_keys(Config.jh_email_address)
         )
+        jh_email_address_textbox.clear()
+        jh_email_address_textbox.send_keys(Config.jh_email_address)
 
     def check_keep_me_signed_in_checkbox(self) -> None:
         # Check "Keep me signed in" checkbox

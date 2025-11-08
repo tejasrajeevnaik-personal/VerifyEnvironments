@@ -5,10 +5,9 @@ import email
 import logging
 from typing import Optional
 
-
 # Configure module-level logger
 logger = logging.getLogger(__name__)
-logger.setLevel(logging.DEBUG)
+logger.setLevel(logging.INFO)
 
 # If a logger handler is not already attached
 if not logger.handlers:

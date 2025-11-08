@@ -1,8 +1,8 @@
 @echo off
 REM ====== CONFIG ======
-set PYTHON_EXE="C:\Program Files\Python314\python.exe"
-set TEST_DIR=C:\Users\P7167349\OneDrive - Ness Digital Engineering\3_Personal\PythonLearning\VerifyEnvironments\tests
-set REPORT_DIR=C:\Users\P7167349\OneDrive - Ness Digital Engineering\3_Personal\PythonLearning\VerifyEnvironments\reports
+set PYTHON_EXE=python.exe
+set TEST_DIR=C:\Users\TNaik\PycharmProjects\VerifyEnvironments\tests
+set REPORT_DIR=C:\Users\TNaik\PycharmProjects\VerifyEnvironments\reports
 set REPORT_FILE=%REPORT_DIR%\report.html
 
 REM ====== RUN TESTS ======

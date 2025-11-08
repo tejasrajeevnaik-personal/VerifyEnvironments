@@ -20,6 +20,7 @@ def login(request):
     DriverFactory.close_driver(driver)
 
 
+@pytest.mark.display_name("External user login - DEV env")
 def test_dev(login):
     external_user_login(login,
                         "dev",
@@ -27,6 +28,8 @@ def test_dev(login):
                         Config.dev_external_user_id,
                         Config.dev_external_password)
 
+
+@pytest.mark.display_name("External user login - DEV-INT env")
 def test_dev_int(login):
     external_user_login(login,
                         "dev-int",
@@ -34,6 +37,8 @@ def test_dev_int(login):
                         Config.dev_int_external_user_id,
                         Config.dev_int_external_password)
 
+
+@pytest.mark.display_name("External user login - STAGING env")
 def test_staging(login):
     external_user_login(login,
                         "staging",
@@ -41,12 +46,15 @@ def test_staging(login):
                         Config.staging_external_user_id,
                         Config.staging_external_password)
 
+
+@pytest.mark.display_name("External user login - TEST env")
 def test_test(login):
     external_user_login(login,
                         "test",
                         Config.test_url,
                         Config.test_external_user_id,
                         Config.test_external_password)
+
 
 def external_user_login(login, env, url, user_id, password):
     login.open(url)
@@ -68,7 +76,7 @@ def external_user_login(login, env, url, user_id, password):
     if login.is_logged_in(30):
         assert True
         print("External user login to {} environment succeeded.".format(env))
-        sleep(5) # Wait for end user to see
+        sleep(5)  # Wait for end user to see
         return
     else:
         print("External user login to {} environment failed.".format(env))

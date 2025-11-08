@@ -20,8 +20,10 @@ class DriverFactory:
     def close_driver(driver) -> None:
         if driver:
             # noinspection PyBroadException
-            try: driver.quit()
-            except: pass
+            try:
+                driver.quit()
+            except:
+                pass
 
     @staticmethod
     def __get_edge_driver():
