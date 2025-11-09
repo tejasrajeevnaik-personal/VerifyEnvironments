@@ -1,0 +1,47 @@
+# emailenv file
+# emailenv
+
+# Bytecode / cache
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+
+# IDE / editor settings
+.vscode/
+.idea/
+*.swp
+
+# PyCharm
+*.iml
+*.ipr
+*.iws
+
+# Python packaging / build
+build/
+dist/
+*.egg-info/
+*.egg
+
+# Pytest / coverage / reports
+.coverage
+htmlcov/
+pytest_cache/
+
+# Virtual environments
+venv/
+.env/
+.env*/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Logs and temp files
+*.log
+*.tmp
+*.temp
+
+# Environment variables
+*.env
+.env.local

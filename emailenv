@@ -1,0 +1,6 @@
+EMAIL_SENDER=tejasrajeevnaiktesting@gmail.com
+EMAIL_RECIPIENT=tejas.naik@ness.com,tnaik@jackhenry.com
+SMTP_SERVER=smtp.gmail.com
+SMTP_PORT=587
+EMAIL_PASSWORD=${GMAIL_APP_PASSWORD}
+EMAIL_USE_TLS=true
