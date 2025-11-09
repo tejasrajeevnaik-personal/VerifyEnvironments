@@ -13,6 +13,7 @@ def pytest_collection_modifyitems(items):
             item._nodeid = mark.args[0]
 
 
+# pytest-html screenshot capture method and its utility methods
 def _safe_name(nodeid: str) -> str:
     return re.sub(r"[^\w\-.]+", "", nodeid).strip("_")
 

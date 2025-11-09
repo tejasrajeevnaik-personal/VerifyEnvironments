@@ -65,7 +65,7 @@ def external_user_login(login, env, url, user_id, password):
         Config.gmail_address,
         Config.gmail_app_password,
         Config.otp_email_subject_filter,
-        120,
+        90,
         5.0,
         True
     )

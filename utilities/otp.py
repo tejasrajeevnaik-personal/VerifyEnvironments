@@ -26,7 +26,7 @@ class OTP:
                                 poll_interval: float = 2.0,
                                 mark_all_read: bool = True) -> Optional[str]:
         # Wait for OTP to arrive
-        time.sleep(30)
+        time.sleep(60)
 
         otp_pattern = re.compile(r"\b\d{6}\b")
         end_time = time.time() + timeout
