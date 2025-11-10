@@ -1,6 +1,6 @@
-import os, re, base64, pytest
-import tempfile
+import os, re, base64, tempfile
 from datetime import datetime
+import pytest
 
 RUN_TS = datetime.now().strftime("%Y%m%d_%H%M%S")
 
@@ -58,7 +58,6 @@ def pytest_runtest_makereport(item, call):
     # save + embed screenshot (pytest-html)
     driver.save_screenshot(fname)
     b64 = base64.b64encode(driver.get_screenshot_as_png()).decode("utf-8")
-
     html = item.config.pluginmanager.getplugin("html")
     if html:
         extra = getattr(report, "extra", [])
