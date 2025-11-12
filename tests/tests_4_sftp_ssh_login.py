@@ -1,0 +1,55 @@
+import pytest
+
+# Import project config
+from config.config import Config
+
+# Import project utilities
+from utilities.server import Server
+
+
+@pytest.mark.display_name("SFTP SSH key login - DEV env")
+def test_dev():
+    status, message = Server.verify_tfs_sftp_ssh_key(host=Config.dev_tfs_host,
+                                                     user_id=Config.dev_participant_ssh_user_id,
+                                                     private_key_text=Config.dev_participant_ssh_key)
+    if status:
+        print(message)
+        assert True, message
+    else:
+        assert False, message
+
+
+@pytest.mark.display_name("SFTP SSH key login - DEV-INT env")
+def test_dev_int():
+    status, message = Server.verify_tfs_sftp_ssh_key(host=Config.dev_int_tfs_host,
+                                                     user_id=Config.dev_int_participant_ssh_user_id,
+                                                     private_key_text=Config.dev_int_participant_ssh_key)
+    if status:
+        print(message)
+        assert True, message
+    else:
+        assert False, message
+
+
+@pytest.mark.display_name("SFTP SSH key login - TEST env")
+def test_test():
+    status, message = Server.verify_tfs_sftp_ssh_key(host=Config.test_tfs_host,
+                                                     user_id=Config.test_participant_ssh_user_id,
+                                                     private_key_text=Config.test_participant_ssh_key)
+    if status:
+        print(message)
+        assert True, message
+    else:
+        assert False, message
+
+
+@pytest.mark.display_name("SFTP SSH key login - STAGING env")
+def test_staging():
+    status, message = Server.verify_tfs_sftp_ssh_key(host=Config.staging_tfs_host,
+                                                     user_id=Config.staging_participant_ssh_user_id,
+                                                     private_key_text=Config.staging_participant_ssh_key)
+    if status:
+        print(message)
+        assert True, message
+    else:
+        assert False, message

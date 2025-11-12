@@ -33,18 +33,18 @@ def test_dev_int(login):
                Config.dev_int_url)
 
 
-@pytest.mark.display_name("Okta login - STAGING env")
-def test_staging(login):
-    okta_login(login,
-               "staging",
-               Config.staging_url)
-
-
 @pytest.mark.display_name("Okta login - TEST env")
 def test_test(login):
     okta_login(login,
                "test",
                Config.test_url)
+
+
+@pytest.mark.display_name("Okta login - STAGING env")
+def test_staging(login):
+    okta_login(login,
+               "staging",
+               Config.staging_url)
 
 
 def okta_login(login, env, url):

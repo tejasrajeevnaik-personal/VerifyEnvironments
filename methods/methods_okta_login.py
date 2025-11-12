@@ -12,7 +12,6 @@ from methods.methods_base import MethodsBase
 
 class MethodsOktaLogin(MethodsBase):
     def click_sso_with_okta_button(self) -> None:
-        # Click on "SSO with Okta" button
         (
             WebDriverWait(self.driver, 10)
             .until(EC.presence_of_element_located((By.CSS_SELECTOR, "main-element")))
@@ -31,7 +30,6 @@ class MethodsOktaLogin(MethodsBase):
             return False
 
     def click_okta_button(self) -> None:
-        # Click on "OKTA" button
         okta_button = (
             WebDriverWait(self.driver, 10)
             .until(EC.presence_of_element_located((By.CSS_SELECTOR, "input[aria-label='OKTA']")))
@@ -39,7 +37,6 @@ class MethodsOktaLogin(MethodsBase):
         self.driver.execute_script("arguments[0].click();", okta_button)
 
     def input_jh_email_address_textbox(self) -> None:
-        # Input JH email address
         jh_email_address_textbox = (
             WebDriverWait(self.driver, 10)
             .until(EC.presence_of_element_located((By.CSS_SELECTOR, "input[autocomplete='username']")))
@@ -48,7 +45,6 @@ class MethodsOktaLogin(MethodsBase):
         jh_email_address_textbox.send_keys(Config.jh_email_address)
 
     def check_keep_me_signed_in_checkbox(self) -> None:
-        # Check "Keep me signed in" checkbox
         keep_me_signed_in_checkbox = (
             WebDriverWait(self.driver, 10)
             .until(EC.presence_of_element_located((By.CSS_SELECTOR, "input[name='rememberMe']")))
@@ -56,7 +52,6 @@ class MethodsOktaLogin(MethodsBase):
         self.driver.execute_script("arguments[0].click();", keep_me_signed_in_checkbox)
 
     def click_next_button(self) -> None:
-        # Click on "Next" button
         (
             WebDriverWait(self.driver, 10)
             .until(EC.presence_of_element_located((By.CSS_SELECTOR, "input[value='Next']")))
@@ -64,7 +59,6 @@ class MethodsOktaLogin(MethodsBase):
         )
 
     def click_select_for_password_button(self) -> None:
-        # Click on "Select" button for Password
         (
             WebDriverWait(self.driver, 10)
             .until(EC.presence_of_element_located((By.CSS_SELECTOR, "a[aria-label='Select Password.']")))
@@ -72,7 +66,6 @@ class MethodsOktaLogin(MethodsBase):
         )
 
     def input_jh_email_password_textbox(self) -> None:
-        # Enter password
         (
             WebDriverWait(self.driver, 10)
             .until(EC.presence_of_element_located((By.CSS_SELECTOR, "input[name='credentials.passcode']")))
@@ -80,7 +73,6 @@ class MethodsOktaLogin(MethodsBase):
         )
 
     def click_verify_button(self) -> None:
-        # Click on "Verify" button
         (
             WebDriverWait(self.driver, 10)
             .until(EC.presence_of_element_located((By.CSS_SELECTOR, "input[value='Verify']")))
@@ -88,7 +80,6 @@ class MethodsOktaLogin(MethodsBase):
         )
 
     def click_select_for_okta_button(self) -> None:
-        # Click on "Select" button for Okta
         (
             WebDriverWait(self.driver, 10)
             .until(EC.presence_of_element_located(
@@ -97,7 +88,6 @@ class MethodsOktaLogin(MethodsBase):
         )
 
     def click_for_user_id_select_button(self, user_id) -> None:
-        # Click on "Select" button for user Id
         select_button = (
             WebDriverWait(self.driver, 300)
             .until(EC.presence_of_element_located((By.CSS_SELECTOR, "main-element")))
@@ -113,7 +103,6 @@ class MethodsOktaLogin(MethodsBase):
         self.driver.execute_script("arguments[0].click();", select_button)
 
     def click_first_select_button(self) -> None:
-        # Click on "Select" button
         first_select_button = (
             WebDriverWait(self.driver, 300)
             .until(EC.presence_of_element_located((By.CSS_SELECTOR, "main-element")))

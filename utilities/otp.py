@@ -7,7 +7,7 @@ from typing import Optional
 
 # Configure module-level logger
 logger = logging.getLogger(__name__)
-logger.setLevel(logging.INFO)
+logger.setLevel(logging.DEBUG)
 
 # If a logger handler is not already attached
 if not logger.handlers:

@@ -38,15 +38,6 @@ def test_dev_int(login):
                         Config.dev_int_external_password)
 
 
-@pytest.mark.display_name("External user login - STAGING env")
-def test_staging(login):
-    external_user_login(login,
-                        "staging",
-                        Config.staging_url,
-                        Config.staging_external_user_id,
-                        Config.staging_external_password)
-
-
 @pytest.mark.display_name("External user login - TEST env")
 def test_test(login):
     external_user_login(login,
@@ -54,6 +45,15 @@ def test_test(login):
                         Config.test_url,
                         Config.test_external_user_id,
                         Config.test_external_password)
+
+
+@pytest.mark.display_name("External user login - STAGING env")
+def test_staging(login):
+    external_user_login(login,
+                        "staging",
+                        Config.staging_url,
+                        Config.staging_external_user_id,
+                        Config.staging_external_password)
 
 
 def external_user_login(login, env, url, user_id, password):

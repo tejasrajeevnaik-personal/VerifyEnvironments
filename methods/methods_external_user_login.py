@@ -8,7 +8,6 @@ from methods.methods_base import MethodsBase
 
 class MethodsExternalUserLogin(MethodsBase):
     def input_user_id_textbox(self, user_id) -> None:
-        # Input User Id
         user_id_textbox = (
             WebDriverWait(self.driver, 10)
             .until(EC.presence_of_element_located((By.CSS_SELECTOR, "main-element")))
@@ -23,7 +22,6 @@ class MethodsExternalUserLogin(MethodsBase):
         user_id_textbox.send_keys(user_id)
 
     def input_password_textbox(self, password) -> None:
-        # Input Password
         (
             WebDriverWait(self.driver, 10)
             .until(EC.presence_of_element_located((By.CSS_SELECTOR, "main-element")))
@@ -37,7 +35,6 @@ class MethodsExternalUserLogin(MethodsBase):
         )
 
     def click_login_button(self) -> None:
-        # Click Login button
         (
             WebDriverWait(self.driver, 10)
             .until(EC.presence_of_element_located((By.CSS_SELECTOR, "main-element")))
@@ -49,7 +46,6 @@ class MethodsExternalUserLogin(MethodsBase):
         )
 
     def input_verification_code_textbox(self, otp) -> None:
-        # Input Verification Code
         (
             WebDriverWait(self.driver, 10)
             .until(EC.presence_of_element_located((By.CSS_SELECTOR, "main-element")))
@@ -65,7 +61,6 @@ class MethodsExternalUserLogin(MethodsBase):
         )
 
     def click_verify_button(self) -> None:
-        # Click Verify button
         (
             WebDriverWait(self.driver, 10)
             .until(EC.presence_of_element_located((By.CSS_SELECTOR, "main-element")))

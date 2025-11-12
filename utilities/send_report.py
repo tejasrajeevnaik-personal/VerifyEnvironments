@@ -24,7 +24,7 @@ class Report:
             raise FileNotFoundError(f"Report sending failed. JSON report not found: {json_path}")
         json_object = json.loads(path.read_text())
         test_result = None
-        exit_status = int(json_object.get("exitcode", -1))  # default to -1 if missing
+        exit_status = int(json_object.get("exitcode", -1))  # Default to -1 if exitcode is missing
         match exit_status:
             case 0:
                 test_result = "Passed"
@@ -38,10 +38,10 @@ class Report:
                 test_result = "Unexpected error"
         summary_object = json_object.get("summary", {})
         summary = (
-            f"Collected: {summary_object.get('collected', 0)}<br/>"
-            f"<span style='color:green;'>Passed:</span> {summary_object.get('passed', 0)}<br/>"
-            f"<span style='color:red;'>Failed:</span> {summary_object.get('failed', 0)}<br/>"
-            f"Skipped: {summary_object.get('skipped', 0)}<br/>"
+            f"Total: {summary_object.get('collected', 0)}<br/>"
+            f"<span style='color:green;'>Passed: {summary_object.get('passed', 0)}</span><br/>"
+            f"<span style='color:gold;'>Rerun: {summary_object.get('rerun', 0)}</span><br/>"
+            f"<span style='color:red;'>Failed: {summary_object.get('failed', 0)}</span><br/>"
             f"<b>Overall status:</b> {test_result}"
         )
         return summary
