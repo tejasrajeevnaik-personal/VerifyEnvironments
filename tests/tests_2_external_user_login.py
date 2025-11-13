@@ -61,6 +61,8 @@ def external_user_login(login, env, url, user_id, password):
     login.input_user_id_textbox(user_id)
     login.input_password_textbox(password)
     login.click_login_button()
+    if not login.is_verification_code_textbox(20):
+        raise AssertionError("External user login to {} environment failed.".format(env))
     otp = OTP.get_otp_from_gmail_imap(
         Config.gmail_address,
         Config.gmail_app_password,

@@ -45,6 +45,25 @@ class MethodsExternalUserLogin(MethodsBase):
             .click()
         )
 
+    def is_verification_code_textbox(self, timeout) -> bool:
+        # noinspection PyBroadException
+        try:
+            element = (
+                WebDriverWait(self.driver, timeout)
+                .until(EC.presence_of_element_located((By.CSS_SELECTOR, "main-element")))
+                .shadow_root
+                .find_element(By.CSS_SELECTOR, "login-page")
+                .shadow_root
+                .find_element(By.CSS_SELECTOR, "multi-factor-auth")
+                .shadow_root
+                .find_element(By.CSS_SELECTOR, "jha-form-input[data-auto-id='authInput']")
+                .shadow_root
+                .find_element(By.CSS_SELECTOR, "input[aria-label='Verification Code']")
+            )
+            return element is not None
+        except Exception:
+            return False
+
     def input_verification_code_textbox(self, otp) -> None:
         (
             WebDriverWait(self.driver, 10)
