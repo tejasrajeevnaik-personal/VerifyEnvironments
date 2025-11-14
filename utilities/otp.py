@@ -1,20 +1,15 @@
+import logging
 import re
 import time
 import imaplib
 import email
-import logging
 from typing import Optional
 
-# Configure module-level logger
-logger = logging.getLogger(__name__)
-logger.setLevel(logging.DEBUG)
+# Import project utilities
+from utilities.logger import get_logger
 
-# If a logger handler is not already attached
-if not logger.handlers:
-    handler = logging.StreamHandler()
-    formatter = logging.Formatter("[%(asctime)s] [%(levelname)s] %(message)s")
-    handler.setFormatter(formatter)
-    logger.addHandler(handler)
+# Get module-level logger
+logger = get_logger(__name__)
 
 
 class OTP:
@@ -25,6 +20,10 @@ class OTP:
                                 timeout: int = 120,
                                 poll_interval: float = 2.0,
                                 mark_all_read: bool = True) -> Optional[str]:
+        # Set logger level to DEBUG for this method only
+        old_level = logger.level
+        logger.setLevel(logging.DEBUG)
+
         # Wait for OTP to arrive
         time.sleep(45)
 
@@ -137,3 +136,5 @@ class OTP:
                 except Exception:
                     pass
                 logger.debug("IMAP connection closed and logged out.")
+
+            logger.setLevel(old_level)

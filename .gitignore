@@ -1,3 +1,6 @@
+# Exclude project config.py
+config/config.py
+
 # Bytecode / cache
 __pycache__/
 *.py[cod]

@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import logging
 import time, datetime, ssl, smtplib, mimetypes, json
 from email.message import EmailMessage
 from pathlib import Path
@@ -7,6 +8,15 @@ from typing import List, Dict, Tuple, Any
 
 # Import project config
 from config.config import Config
+
+# Import project utilities
+from utilities.logger import setup_logger, get_logger
+
+# Setup logger
+setup_logger(level=logging.DEBUG, force=True)
+
+# Get module-level logger
+logger = get_logger(__name__)
 
 
 # noinspection PyBroadException
@@ -16,7 +26,8 @@ class Report:
     def __build_message_summary(cls, json_path: str) -> str:
         path = Path(json_path)
         if not path.exists():
-            raise FileNotFoundError(f"Report sending failed. JSON report not found: {json_path}")
+            logger.exception("Report sending failed. JSON report not found: %s", json_path)
+            raise FileNotFoundError
         json_object = json.loads(path.read_text())
         test_result = None
         exit_status = int(json_object.get("exitcode", -1))  # Default to -1 if exitcode is missing
@@ -67,7 +78,8 @@ class Report:
 
         html_path = Path(report_html_path)
         if not html_path.exists():
-            raise FileNotFoundError(f"Report sending failed. HTML report not found: {html_path}")
+            logger.exception("Report sending failed. HTML report not found: %s", html_path)
+            raise FileNotFoundError
         data = html_path.read_bytes()
         ctype, _ = mimetypes.guess_type(html_path.as_posix())
         if not ctype:
@@ -119,6 +131,11 @@ class Report:
 
     @classmethod
     def __parse_json(cls, json_path: str) -> Dict[str, Any]:
+        path = Path(json_path)
+        if not path.exists():
+            logger.exception("Report sending failed. JSON report not found: %s", json_path)
+            raise FileNotFoundError
+
         with open(json_path, "r", encoding="utf-8") as f:
             data = json.load(f)
 
@@ -190,7 +207,7 @@ class Report:
             }
             .pass { color: #067c06; font-weight: 700; }
             .fail { color: #c43b2b; font-weight: 700; }
-            .other { color: #666; }
+            .other { color: #666; font-weight: 700; }
             .row-summary { font-size: 12px; color: #666; margin-top: 4px; }
             .top-summary { font-family: Arial, sans-serif; font-size: 14px; color: #333; margin-bottom: 8px; }
             """
@@ -201,7 +218,7 @@ class Report:
         # Add top-level counts summary line
         html += (f'<div class="top-summary"><strong>Total:</strong> {total} &nbsp;|&nbsp; '
                  f'<span class="pass"><strong>Passed:</strong> {passed}</span> &nbsp;|&nbsp; '
-                 f'<span class="other"><strong>Rerun:</strong> {rerun}</span> &nbsp;|&nbsp; '
+                 f'<span class="other"><strong>Rerun (and passed):</strong> {rerun}</span> &nbsp;|&nbsp; '
                  f'<span class="fail"><strong>Failed:</strong> {failed}</span></div>')
 
         html += '<table class="summary" role="table" aria-label="Environment login summary">'
@@ -230,8 +247,10 @@ class Report:
                     cell = '<span class="pass">✓ Passed</span>'
                 elif outcome == "failed":
                     cell = '<span class="fail">✗ Failed</span>'
+                elif outcome == "rerun":
+                    cell = '<span class="pass">✓ Passed (rerun)</span>'
                 elif outcome:
-                    cell = f'<span class="other">{outcome}</span>'
+                    cell = f'<span class="other">{outcome[:1].upper() + outcome[1:]}</span>'
                 else:
                     cell = '<span class="other">—</span>'
                 html += f"<td>{cell}</td>"
@@ -261,7 +280,8 @@ class Report:
 
         html_path = Path(report_html_path)
         if not html_path.exists():
-            raise FileNotFoundError(f"Report sending failed. HTML report not found: {html_path}")
+            logger.exception("Report sending failed. HTML report not found: %s", html_path)
+            raise FileNotFoundError
         data = html_path.read_bytes()
         ctype, _ = mimetypes.guess_type(html_path.as_posix())
         if not ctype:
@@ -310,7 +330,7 @@ class Report:
                 smtp.ehlo()
                 smtp.login(email, email_app_password)
                 smtp.send_message(message)
-                print(f"Report sent to: {", ".join(recipients)}")
+                logger.info("Report email sent to: %s", ", ".join(recipients))
                 # Explicit graceful shutdown
                 try:
                     smtp.quit()
@@ -329,7 +349,8 @@ class Report:
             if attempt <= MAX_RETRIES and Report.__is_transient(exception):
                 time.sleep(BACKOFF_BASE ** attempt)  # 2s, 4s, 8s ...
                 continue
-            raise Exception(f"Send report failed. Local report path: {relative_report_html_path}")
+            logger.exception("Report sending failed. Local report path: %s", relative_report_html_path)
+            raise
 
 
 if __name__ == "__main__":

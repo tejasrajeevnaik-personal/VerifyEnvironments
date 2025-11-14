@@ -2,7 +2,22 @@ import os, re, base64, tempfile
 from datetime import datetime
 import pytest
 
+# Import project logger
+from utilities.logger import setup_logger
+from utilities.logger import teardown_logger
+
 RUN_TS = datetime.now().strftime("%Y%m%d_%H%M%S")
+
+
+def pytest_configure(config):
+    setup_logger()
+
+
+# Optional: This is to teardown the custom logger and restore sys logger at the end of pytest run
+"""
+def pytest_unconfigure(config):
+    teardown_logger()
+"""
 
 
 # Get values from custom test name decorator - display_name
@@ -13,16 +28,16 @@ def pytest_collection_modifyitems(items):
             item._nodeid = mark.args[0]
 
 
-# Pytest-html screenshot capture method and its utility methods
+# ---------- Pytest-html screenshot capture method and its utility methods ----------
 def _safe_name(nodeid: str) -> str:
     return re.sub(r"[^\w\-.]+", "", nodeid).strip("_")
 
 
 def _extract_driver(fixture_object):
-    # is driver directly present as root object?
+    # Is driver directly present as root object?
     if hasattr(fixture_object, "save_screenshot"):
         return fixture_object
-    # is driver present at root - 1? like login.driver
+    # Is driver present at root - 1? like login.driver
     driver = getattr(fixture_object, "driver", None)
     if driver and hasattr(driver, "save_screenshot"):
         return driver
@@ -30,7 +45,7 @@ def _extract_driver(fixture_object):
 
 
 def _find_driver_from_item(item):
-    # look through all fixture objects bound to this test
+    # Look through all fixture objects bound to this test
     for fixture_object in item.funcargs.values():
         driver = _extract_driver(fixture_object)
         if driver:

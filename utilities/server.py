@@ -5,6 +5,12 @@ from io import StringIO
 from typing import Optional, Tuple
 import time
 
+# Import project utilities
+from utilities.logger import get_logger
+
+# Get module-level logger
+logger = get_logger(__name__)
+
 
 class Server:
     @staticmethod
@@ -37,8 +43,8 @@ class Server:
                 return True, message
             except Exception as exception:
                 message = f"SFTP (password) attempt {attempt} failed: {exception}"
-                print(message)
                 if attempt < max_retries:
+                    logger.warning(message)
                     time.sleep(delay)
             finally:
                 if sftp:
@@ -74,7 +80,8 @@ class Server:
                 elif private_key_text:
                     pkey = paramiko.RSAKey.from_private_key(StringIO(private_key_text), password=private_key_passphrase)
                 else:
-                    raise ValueError("Either private key path or private key text must be provided.")
+                    logger.error("Either private key path or private key text must be provided.")
+                    raise ValueError
 
                 ssh = paramiko.SSHClient()
                 ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
@@ -94,8 +101,8 @@ class Server:
                 return True, message
             except Exception as exc:
                 message = f"SFTP (SSH key) attempt {attempt} failed: {exc}"
-                print(message)
                 if attempt < max_retries:
+                    logger.warning(message)
                     time.sleep(delay)
             finally:
                 if sftp:
@@ -145,8 +152,8 @@ class Server:
                 return True, message
             except Exception as exc:
                 message = f"FTPS attempt {attempt} failed: {exc}"
-                print(message)
                 if attempt < max_retries:
+                    logger.warning(message)
                     time.sleep(delay)
             finally:
                 if ftps:

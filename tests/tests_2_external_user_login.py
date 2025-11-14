@@ -7,9 +7,13 @@ from config.config import Config
 # Import project utilities
 from utilities.driver_factory import DriverFactory
 from utilities.otp import OTP
+from utilities.logger import get_logger
 
 # Import project methods
 from methods.methods_external_user_login import MethodsExternalUserLogin
+
+# Get module-level logger
+logger = get_logger(__name__)
 
 
 @pytest.fixture(scope="function")
@@ -62,7 +66,9 @@ def external_user_login(login, env, url, user_id, password):
     login.input_password_textbox(password)
     login.click_login_button()
     if not login.is_verification_code_textbox(20):
-        raise AssertionError("External user login to {} environment failed.".format(env))
+        logger.error("External user login to %s environment failed - "
+                     "Didn't navigate to MFA page (Possibly invalid user id or password).", env)
+        raise
     otp = OTP.get_otp_from_gmail_imap(
         Config.gmail_address,
         Config.gmail_app_password,
@@ -72,15 +78,16 @@ def external_user_login(login, env, url, user_id, password):
         True
     )
     if not otp:
-        raise AssertionError("OTP not found")
+        logger.error("External user login to %s environment failed - OTP not found.", env)
+        raise
     login.input_verification_code_textbox(otp)
     login.click_verify_button()
     if login.is_logged_in(30):
         assert True
-        print("External user login to {} environment succeeded.".format(env))
+        logger.info("External user login to %s environment succeeded.", env)
         sleep(5)  # Wait for end user to see
         return
     else:
-        print("External user login to {} environment failed.".format(env))
+        logger.error("External user login to %s environment failed - graceful landing failed.", env)
         sleep(5)  # Wait for end user to see
         assert False

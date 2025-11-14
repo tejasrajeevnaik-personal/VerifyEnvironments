@@ -5,6 +5,10 @@ from config.config import Config
 
 # Import project utilities
 from utilities.server import Server
+from utilities.logger import get_logger
+
+# Get module-level logger
+logger = get_logger(__name__)
 
 
 @pytest.mark.display_name("SFTP password login - DEV env")
@@ -13,10 +17,11 @@ def test_dev():
                                                       user_id=Config.dev_participant_password_user_id,
                                                       password=Config.dev_participant_password_password)
     if status:
-        print(message)
-        assert True, message
+        logger.info(message)
+        assert True
     else:
-        assert False, message
+        logger.error(message)
+        assert False
 
 
 @pytest.mark.display_name("SFTP password login - DEV-INT env")
@@ -25,10 +30,11 @@ def test_dev_int():
                                                       user_id=Config.dev_int_participant_password_user_id,
                                                       password=Config.dev_int_participant_password_password)
     if status:
-        print(message)
-        assert True, message
+        logger.info(message)
+        assert True
     else:
-        assert False, message
+        logger.error(message)
+        assert False
 
 
 @pytest.mark.display_name("SFTP password login - TEST env")
@@ -37,10 +43,11 @@ def test_test():
                                                       user_id=Config.test_participant_password_user_id,
                                                       password=Config.test_participant_password_password)
     if status:
-        print(message)
-        assert True, message
+        logger.info(message)
+        assert True
     else:
-        assert False, message
+        logger.error(message)
+        assert False
 
 
 @pytest.mark.display_name("SFTP password login - STAGING env")
@@ -49,7 +56,8 @@ def test_staging():
                                                       user_id=Config.staging_participant_password_user_id,
                                                       password=Config.staging_participant_password_password)
     if status:
-        print(message)
-        assert True, message
+        logger.info(message)
+        assert True
     else:
-        assert False, message
+        logger.error(message)
+        assert False
