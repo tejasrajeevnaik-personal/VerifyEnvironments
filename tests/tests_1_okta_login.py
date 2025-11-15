@@ -80,9 +80,9 @@ def okta_login(login, env, url):
     if login.is_logged_in(120):
         assert True
         logger.info(f"Okta login to {env} environment succeeded.")
-        sleep(5)  # Wait for end user to see
+        sleep(1)  # Wait for end user to see
         return
     else:
         logger.error(f"Okta login to {env} environment failed - graceful landing failed.")
-        sleep(5)  # Wait for end user to see
+        sleep(1)  # Wait for end user to see
         assert False

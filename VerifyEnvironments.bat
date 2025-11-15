@@ -11,9 +11,9 @@ set "rc=%ERRORLEVEL%"
 
 REM -- Only send report for exit codes 0 and 1
 if "%rc%"=="0" (
-    call "%PYTHON_EXE%" -m utilities.send_report --pytest-exit %rc%
+    call "%PYTHON_EXE%" -m utilities.report
 ) else if "%rc%"=="1" (
-    call "%PYTHON_EXE%" -m utilities.send_report --pytest-exit %rc%
+    call "%PYTHON_EXE%" -m utilities.report
 ) else (
     echo Test execution exited unexpectedly with exit code %rc%. Report sending cancelled.
 )

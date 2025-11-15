@@ -26,8 +26,9 @@ class Report:
     def __build_message_summary(cls, json_path: str) -> str:
         path = Path(json_path)
         if not path.exists():
-            logger.exception("Report sending failed. JSON report not found: %s", json_path)
-            raise FileNotFoundError
+            e_message = f"Report sending failed. JSON report not found: {json_path}"
+            logger.exception(e_message)
+            raise FileNotFoundError(e_message)
         json_object = json.loads(path.read_text())
         test_result = None
         exit_status = int(json_object.get("exitcode", -1))  # Default to -1 if exitcode is missing
@@ -78,8 +79,9 @@ class Report:
 
         html_path = Path(report_html_path)
         if not html_path.exists():
-            logger.exception("Report sending failed. HTML report not found: %s", html_path)
-            raise FileNotFoundError
+            e_message = f"Report sending failed. HTML report not found: {html_path}"
+            logger.exception(e_message)
+            raise FileNotFoundError(e_message)
         data = html_path.read_bytes()
         ctype, _ = mimetypes.guess_type(html_path.as_posix())
         if not ctype:
@@ -121,7 +123,7 @@ class Report:
         total = len(tests)
         passed = sum(1 for t in tests if (t.get("outcome") or "").lower() == "passed")
         failed = sum(1 for t in tests if (t.get("outcome") or "").lower() == "failed")
-        # detect rerun attempts if available in test keys (flexible)
+        # Detect rerun attempts if available in test keys (flexible)
         rerun = sum(1
                     for t in tests
                     if str(t.get("rerun", "")).lower() in ("true", "1", "yes")
@@ -133,8 +135,9 @@ class Report:
     def __parse_json(cls, json_path: str) -> Dict[str, Any]:
         path = Path(json_path)
         if not path.exists():
-            logger.exception("Report sending failed. JSON report not found: %s", json_path)
-            raise FileNotFoundError
+            e_message = f"Report sending failed. JSON report not found: {json_path}"
+            logger.exception(e_message)
+            raise FileNotFoundError(e_message)
 
         with open(json_path, "r", encoding="utf-8") as f:
             data = json.load(f)
@@ -280,8 +283,9 @@ class Report:
 
         html_path = Path(report_html_path)
         if not html_path.exists():
-            logger.exception("Report sending failed. HTML report not found: %s", html_path)
-            raise FileNotFoundError
+            e_message = f"Report sending failed. HTML report not found: {html_path}"
+            logger.exception(e_message)
+            raise FileNotFoundError(e_message)
         data = html_path.read_bytes()
         ctype, _ = mimetypes.guess_type(html_path.as_posix())
         if not ctype:
@@ -349,8 +353,9 @@ class Report:
             if attempt <= MAX_RETRIES and Report.__is_transient(exception):
                 time.sleep(BACKOFF_BASE ** attempt)  # 2s, 4s, 8s ...
                 continue
-            logger.exception("Report sending failed. Local report path: %s", relative_report_html_path)
-            raise
+            e_message = f"Report sending failed. Local report path: {relative_report_html_path}"
+            logger.exception(e_message)
+            raise e_message
 
 
 if __name__ == "__main__":

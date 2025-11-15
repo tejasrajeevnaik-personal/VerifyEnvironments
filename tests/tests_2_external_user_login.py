@@ -66,9 +66,10 @@ def external_user_login(login, env, url, user_id, password):
     login.input_password_textbox(password)
     login.click_login_button()
     if not login.is_verification_code_textbox(20):
-        logger.error("External user login to %s environment failed - "
-                     "Didn't navigate to MFA page (Possibly invalid user id or password).", env)
-        raise
+        message = f"External user login to {env} environment failed - "\
+                  f"didn't navigate to MFA page"
+        logger.error(message)
+        raise message
     otp = OTP.get_otp_from_gmail_imap(
         Config.gmail_address,
         Config.gmail_app_password,
@@ -78,16 +79,17 @@ def external_user_login(login, env, url, user_id, password):
         True
     )
     if not otp:
-        logger.error("External user login to %s environment failed - OTP not found.", env)
-        raise
+        message = f"External user login to {env} environment failed - OTP not found."
+        logger.error(message)
+        raise message
     login.input_verification_code_textbox(otp)
     login.click_verify_button()
     if login.is_logged_in(30):
         assert True
         logger.info("External user login to %s environment succeeded.", env)
-        sleep(5)  # Wait for end user to see
+        sleep(1)  # Wait for end user to see
         return
     else:
         logger.error("External user login to %s environment failed - graceful landing failed.", env)
-        sleep(5)  # Wait for end user to see
+        sleep(1)  # Wait for end user to see
         assert False

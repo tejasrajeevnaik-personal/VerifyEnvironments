@@ -37,7 +37,6 @@ def setup_logger(level: Optional[int] = None,
     # 2. Route uncaught exceptions through logger
     def _excepthook(exc_type, exc, tb):
         logging.getLogger("uncaught").exception("Uncaught exception", exc_info=(exc_type, exc, tb))
-
     sys.excepthook = _excepthook
 
 
