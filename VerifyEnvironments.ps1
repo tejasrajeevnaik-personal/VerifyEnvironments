@@ -17,6 +17,9 @@ if (Test-Path $envScript) {
     $null = $Host.UI.RawUI.ReadKey("NoEcho,IncludeKeyDown")
     exit 1
 }
+Write-Host ""
+Write-Host "Env variables setup completed."
+Write-Host ""
 
 # Config
 $PYTHON_EXE = 'C:\Program Files\Python314\python.exe'

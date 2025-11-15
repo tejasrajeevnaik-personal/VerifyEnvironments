@@ -71,9 +71,9 @@ def external_user_login(login, env, url, user_id, password):
         logger.error(message)
         raise message
     otp = OTP.get_otp_from_gmail_imap(
-        Config.gmail_address,
-        Config.gmail_app_password,
-        Config.otp_email_subject_filter,
+        Config.external_gmail_address,
+        Config.external_gmail_app_password,
+        Config.external_otp_email_subject_filter,
         90,
         5.0,
         True
@@ -90,6 +90,7 @@ def external_user_login(login, env, url, user_id, password):
         sleep(1)  # Wait for end user to see
         return
     else:
-        logger.error("External user login to %s environment failed - graceful landing failed.", env)
+        assert_message = f"External user login to {env} environment failed - graceful landing failed."
+        logger.error(assert_message)
         sleep(1)  # Wait for end user to see
-        assert False
+        assert False, assert_message

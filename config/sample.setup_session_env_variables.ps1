@@ -74,7 +74,7 @@ DUMMY-STAGING-SSH-KEY
 $env:EFM_JH_EMAIL_ADDRESS = "dummy_okta_user@example.com"
 $env:EFM_JH_EMAIL_PASSWORD = "dummy_okta_password"
 
-# External user login config
+# OTP retrieval for external user login config
 $env:EFM_GMAIL_ADDRESS = "dummyuser@gmail.com"
 $env:EFM_GMAIL_APP_PASSWORD = "dummy_app_password"
 $env:EFM_OTP_EMAIL_SUBJECT_FILTER = "EFM OTP Code Verification"

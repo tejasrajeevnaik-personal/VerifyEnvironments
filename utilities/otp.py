@@ -21,7 +21,7 @@ class OTP:
                                 poll_interval: float = 2.0,
                                 mark_all_read: bool = True) -> Optional[str]:
         # Set logger level to DEBUG for this method only
-        old_level = logger.level
+        old_level = logger.getEffectiveLevel()
         logger.setLevel(logging.DEBUG)
 
         # Wait for OTP to arrive

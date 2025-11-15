@@ -57,32 +57,34 @@ def okta_login(login, env, url):
     login.click_okta_button()
     if login.is_logged_in(10):
         assert True
-        logger.info(f"Okta login to {env} environment succeeded.")
+        logger.info("Okta login to %s environment succeeded.",env)
         return
     if login.is_okta_logged_in(10):
         login.click_first_select_button()
         if login.is_logged_in(10):
             assert True
-            logger.info(f"Okta login to {env} environment succeeded.")
+            logger.info("Okta login to %s environment succeeded.",env)
             return
         else:
-            logger.error(f"Okta login to {env} environment failed - graceful landing failed.")
-            assert False
-    login.input_jh_email_address_textbox()
+            assert_message = f"Okta login to {env} environment failed - graceful landing failed."
+            logger.error(assert_message)
+            assert False, assert_message
+    login.input_jh_email_address_textbox(Config.okta_jh_email_address)
     login.check_keep_me_signed_in_checkbox()
     login.click_next_button()
     login.click_select_for_password_button()
-    login.input_jh_email_password_textbox()
+    login.input_jh_email_password_textbox(Config.okta_jh_email_password)
     login.click_verify_button()
     login.click_select_for_okta_button()
     # User manually inputs the Okta code and hits ENTER key
     login.click_first_select_button()
     if login.is_logged_in(120):
         assert True
-        logger.info(f"Okta login to {env} environment succeeded.")
+        logger.info("Okta login to %s environment succeeded.",env)
         sleep(1)  # Wait for end user to see
         return
     else:
-        logger.error(f"Okta login to {env} environment failed - graceful landing failed.")
+        assert_message = f"Okta login to {env} environment failed - graceful landing failed."
+        logger.error(assert_message)
         sleep(1)  # Wait for end user to see
-        assert False
+        assert False, assert_message

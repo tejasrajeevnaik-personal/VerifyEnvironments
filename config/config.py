@@ -87,7 +87,7 @@ class __Config:
     okta_jh_email_address: Secret
     okta_jh_email_password: Secret
 
-    # External user login config
+    # OTP retrieval for external user login config
     external_gmail_address: str
     external_gmail_app_password: Secret
     external_otp_email_subject_filter: str
@@ -163,7 +163,7 @@ Config = __Config(
     okta_jh_email_address=__get_secret("EFM_JH_EMAIL_ADDRESS"),
     okta_jh_email_password=__get_secret("EFM_JH_EMAIL_PASSWORD"),
 
-    # External user login config
+    # OTP retrieval for external user login config
     external_gmail_address=__get_value("EFM_GMAIL_ADDRESS"),
     external_gmail_app_password=__get_secret("EFM_GMAIL_APP_PASSWORD"),
     external_otp_email_subject_filter=__get_value("EFM_OTP_EMAIL_SUBJECT_FILTER",

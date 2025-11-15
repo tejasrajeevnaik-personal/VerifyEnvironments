@@ -276,7 +276,7 @@ class Report:
 
         message = EmailMessage()
         message["Subject"] = f"{subject_prefix} - {datetime.date.today().strftime('%m/%d/%Y')}"
-        message["From"] = Config.send_report_email
+        message["From"] = Config.send_report_gmail
         message["To"] = ", ".join(recipients)
         message.set_content("Please find the HTML report attached.")
         message.add_alternative(html, subtype="html")
@@ -304,8 +304,8 @@ class Report:
         TIMEOUT_S = 30
         MAX_RETRIES = 3
         BACKOFF_BASE = 2
-        email = Config.send_report_email
-        email_app_password = Config.send_report_email_app_password
+        email = Config.send_report_gmail
+        email_app_password = Config.send_report_gmail_app_password
 
         # Legacy method call - build basic message
         """
@@ -327,8 +327,8 @@ class Report:
             attempt += 1
             smtp = None
             try:
-                smtp = smtplib.SMTP_SSL(Config.send_report_smtp_host,
-                                        Config.send_report_smtp_port,
+                smtp = smtplib.SMTP_SSL(Config.send_report_gmail_smtp_host,
+                                        Config.send_report_gmail_smtp_port,
                                         timeout=TIMEOUT_S,
                                         context=context)
                 smtp.ehlo()

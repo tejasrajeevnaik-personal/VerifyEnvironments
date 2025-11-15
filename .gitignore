@@ -1,3 +1,6 @@
+# Exclude project .env file
+config/.env
+
 # Exclude setup env file
 config/setup_session_env_variables.ps1
 

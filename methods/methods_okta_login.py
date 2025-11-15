@@ -36,13 +36,13 @@ class MethodsOktaLogin(MethodsBase):
         )
         self.driver.execute_script("arguments[0].click();", okta_button)
 
-    def input_jh_email_address_textbox(self) -> None:
+    def input_jh_email_address_textbox(self, email) -> None:
         jh_email_address_textbox = (
             WebDriverWait(self.driver, 10)
             .until(EC.presence_of_element_located((By.CSS_SELECTOR, "input[autocomplete='username']")))
         )
         jh_email_address_textbox.clear()
-        jh_email_address_textbox.send_keys(Config.jh_email_address)
+        jh_email_address_textbox.send_keys(email)
 
     def check_keep_me_signed_in_checkbox(self) -> None:
         keep_me_signed_in_checkbox = (
@@ -65,11 +65,11 @@ class MethodsOktaLogin(MethodsBase):
             .click()
         )
 
-    def input_jh_email_password_textbox(self) -> None:
+    def input_jh_email_password_textbox(self, password) -> None:
         (
             WebDriverWait(self.driver, 10)
             .until(EC.presence_of_element_located((By.CSS_SELECTOR, "input[name='credentials.passcode']")))
-            .send_keys(Config.jh_email_password)
+            .send_keys(password)
         )
 
     def click_verify_button(self) -> None:
