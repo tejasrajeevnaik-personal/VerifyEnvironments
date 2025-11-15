@@ -1,4 +1,4 @@
-# Important: This file should always reside in project root. If needed, copy its shortcut to a desired location
+# Important: This file should always reside in project root. If needed, copy its shortcut to a desired location.
 
 Write-Host "Important: This file should always reside in project root. If needed, copy its shortcut to a desired location."
 Write-Host ""

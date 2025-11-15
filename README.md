@@ -14,7 +14,8 @@ The goal of this project is to eliminate repetitive manual checks and ensure tha
 healthy and functional at all times.
 
 Key Features:\
-✅ Automated execution via a single double-clickable .bat file\
+✅ Automated execution via a single double-clickable PowerShell (.ps1) file\
 ✅ Automatic OTP retrieval from Gmail (for login verification)\
+✅ Automated backend / server tests for SFTP and FTPS connections\
 ✅ Automatic email reporting sent to stakeholders after execution\
 ✅ Acts as a daily environment hygiene checker to catch issues early

@@ -3,8 +3,7 @@ from datetime import datetime
 import pytest
 
 # Import project logger
-from utilities.logger import setup_logger
-from utilities.logger import teardown_logger
+from utilities.logger import setup_logger, teardown_logger
 
 RUN_TS = datetime.now().strftime("%Y%m%d_%H%M%S")
 
