@@ -6,6 +6,7 @@ from config.config import Config
 
 # Import project utilities
 from utilities.driver_factory import DriverFactory
+from utilities.totp import TOTP
 from utilities.logger import get_logger
 
 # Import project methods
@@ -75,8 +76,20 @@ def okta_login(login, env, url):
     login.click_select_for_password_button()
     login.input_jh_email_password_textbox(Config.okta_jh_email_password)
     login.click_verify_button()
+
+    """
+    # ----- Manual flow: User manually inputs the Okta code and hits ENTER key -----
     login.click_select_for_okta_button()
-    # User manually inputs the Okta code and hits ENTER key
+    # Manual code entry here
+    # ----- End manual flow -----
+    """
+    # ----- Automated flow: Generate TOTP for Google authenticator and enter code -----
+    login.click_select_for_google_authenticator_button()
+    totp = TOTP.generate_totp()
+    login.input_google_authenticator_code_textbox(totp)
+    login.click_verify_button()
+    # ----- End automated flow -----
+
     login.click_first_select_button()
     if login.is_logged_in(120):
         assert True

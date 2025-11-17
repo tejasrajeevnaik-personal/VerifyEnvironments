@@ -86,6 +86,7 @@ class __Config:
     # Okta user login config
     okta_jh_email_address: Secret
     okta_jh_email_password: Secret
+    okta_jh_email_totp_secret: Secret
 
     # OTP retrieval for external user login config
     external_gmail_address: str
@@ -160,13 +161,14 @@ Config = __Config(
     staging_participant_ssh_key=__get_secret("EFM_STAGING_PARTICIPANT_SSH_KEY"),
 
     # Okta user login config
-    okta_jh_email_address=__get_secret("EFM_JH_EMAIL_ADDRESS"),
-    okta_jh_email_password=__get_secret("EFM_JH_EMAIL_PASSWORD"),
+    okta_jh_email_address=__get_secret("EFM_OKTA_JH_EMAIL_ADDRESS"),
+    okta_jh_email_password=__get_secret("EFM_OKTA_JH_EMAIL_PASSWORD"),
+    okta_jh_email_totp_secret=__get_secret("EFM_OKTA_JH_EMAIL_TOTP_SECRET"),
 
     # OTP retrieval for external user login config
-    external_gmail_address=__get_value("EFM_GMAIL_ADDRESS"),
-    external_gmail_app_password=__get_secret("EFM_GMAIL_APP_PASSWORD"),
-    external_otp_email_subject_filter=__get_value("EFM_OTP_EMAIL_SUBJECT_FILTER",
+    external_gmail_address=__get_value("EFM_EXTERNAL_GMAIL_ADDRESS"),
+    external_gmail_app_password=__get_secret("EFM_EXTERNAL_GMAIL_APP_PASSWORD"),
+    external_otp_email_subject_filter=__get_value("EFM_EXTERNAL_OTP_EMAIL_SUBJECT_FILTER",
                                                   "EFM OTP Code Verification"),
 
     # Send report config

@@ -3,9 +3,6 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.common import TimeoutException
 
-# Import project config
-from config.config import Config
-
 # Import project methods
 from methods.methods_base import MethodsBase
 
@@ -85,6 +82,30 @@ class MethodsOktaLogin(MethodsBase):
             .until(EC.presence_of_element_located(
                 (By.CSS_SELECTOR, "a[aria-label='Select to enter a code from the Okta Verify app.']")))
             .click()
+        )
+
+    def input_okta_code_textbox(self, totp) -> None:
+        (
+            WebDriverWait(self.driver, 10)
+            .until(EC.presence_of_element_located(
+                (By.CSS_SELECTOR, "input[name='credentials.passcode']")))
+            .send_keys(totp)
+        )
+
+    def click_select_for_google_authenticator_button(self) -> None:
+        (
+            WebDriverWait(self.driver, 10)
+            .until(EC.presence_of_element_located(
+                (By.CSS_SELECTOR, "a[aria-label='Select Google Authenticator.']")))
+            .click()
+        )
+
+    def input_google_authenticator_code_textbox(self, totp):
+        (
+            WebDriverWait(self.driver, 10)
+            .until(EC.presence_of_element_located(
+                (By.CSS_SELECTOR, "input[name='credentials.passcode']")))
+            .send_keys(totp)
         )
 
     def click_for_user_id_select_button(self, user_id) -> None:

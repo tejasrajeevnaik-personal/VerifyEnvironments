@@ -1,2 +1,37 @@
-pytest
-selenium
+# Core dependencies
+selenium==4.38.0            # Browser automation
+paramiko==4.0.0             # SSH / SFTP automation
+pyotp==2.9.0                # TOTP generation for Okta
+requests==2.32.5            # HTTP calls (URL checks / API calls)
+
+# Pytest depndencies
+pytest==9.0.1               # Test runner
+pytest-html==4.1.1          # Enables --html and --self-contained-html in pytest.ini
+pytest-json-report==1.5.0   # Enables --json-report output in pytest.ini
+pytest-rerunfailures==16.1  # Enables --reruns and --reruns-delay in pytest.ini
+pytest-metadata==3.1.1      # Adds pytest metadata (used by pytest-html)
+pytest-xdist==3.8.0         # Parallel test execution (-n)
+
+# Required by paramiko, requests, and pytest. Also ensures CI stability
+bcrypt==5.0.0
+cffi==2.0.0
+pycparser==2.23
+PyNaCl==1.6.1
+cryptography==46.0.3
+certifi==2025.10.5
+charset-normalizer==3.4.4
+idna==3.11
+urllib3==2.5.0
+
+# Optional but better to include
+# Pytest / plugin support libraries (indirect)
+iniconfig==2.3.0            # Pytest config loader
+packaging==25.0             # Version / marker parsing (pytest dependency)
+pluggy==1.6.0               # Pytest plugin system foundation
+colorama==0.4.6             # Terminal colors (especially Windows)
+
+# Optional but better to include
+# Optional utilities used by the project
+python-dotenv==1.2.1        # Load environment variables from .env (local dev)
+Jinja2==3.1.6               # Template rendering for reports/emails
+MarkupSafe==3.0.3           # Required by Jinja2 (HTML/templating safety)

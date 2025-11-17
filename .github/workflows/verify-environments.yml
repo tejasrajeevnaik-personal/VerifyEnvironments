@@ -1,0 +1,94 @@
+name: Verify Environments (Scheduled)
+
+on:
+  # Runs every 6 hours
+  # schedule:
+    # - cron: "0 */6 * * *"
+
+  # Allows manual trigger
+  workflow_dispatch:
+
+jobs:
+  run-verification:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        # noinspection UndefinedAction
+        uses: actions/checkout@v4
+
+      - name: Install Python
+        # noinspection UndefinedAction
+        uses: actions/setup-python@v5
+        with:
+          # noinspection UndefinedParamsPresent
+          python-version: "3.11"
+
+      - name: Install python dependencies
+        run: |
+          pip install -r requirements.txt
+
+      - name: Setup env variables and run tests
+        shell: pwsh
+        env:
+          EFM_BROWSER: ${{ secrets.EFM_BROWSER }}
+
+          EFM_DEV_URL: ${{ secrets.EFM_DEV_URL }}
+          EFM_DEV_TFS_HOST: ${{ secrets.EFM_DEV_TFS_HOST }}
+          EFM_DEV_EXTERNAL_USER_ID: ${{ secrets.EFM_DEV_EXTERNAL_USER_ID }}
+          EFM_DEV_EXTERNAL_PASSWORD: ${{ secrets.EFM_DEV_EXTERNAL_PASSWORD }}
+          EFM_DEV_PARTICIPANT_PASSWORD_USER_ID: ${{ secrets.EFM_DEV_PARTICIPANT_PASSWORD_USER_ID }}
+          EFM_DEV_PARTICIPANT_PASSWORD_PASSWORD: ${{ secrets.EFM_DEV_PARTICIPANT_PASSWORD_PASSWORD }}
+          EFM_DEV_PARTICIPANT_SSH_USER_ID: ${{ secrets.EFM_DEV_PARTICIPANT_SSH_USER_ID }}
+          EFM_DEV_PARTICIPANT_SSH_KEY: ${{ secrets.EFM_DEV_PARTICIPANT_SSH_KEY }}
+
+          EFM_DEV_INT_URL: ${{ secrets.EFM_DEV_INT_URL }}
+          EFM_DEV_INT_TFS_HOST: ${{ secrets.EFM_DEV_INT_TFS_HOST }}
+          EFM_DEV_INT_EXTERNAL_USER_ID: ${{ secrets.EFM_DEV_INT_EXTERNAL_USER_ID }}
+          EFM_DEV_INT_EXTERNAL_PASSWORD: ${{ secrets.EFM_DEV_INT_EXTERNAL_PASSWORD }}
+          EFM_DEV_INT_PARTICIPANT_PASSWORD_USER_ID: ${{ secrets.EFM_DEV_INT_PARTICIPANT_PASSWORD_USER_ID }}
+          EFM_DEV_INT_PARTICIPANT_PASSWORD_PASSWORD: ${{ secrets.EFM_DEV_INT_PARTICIPANT_PASSWORD_PASSWORD }}
+          EFM_DEV_INT_PARTICIPANT_SSH_USER_ID: ${{ secrets.EFM_DEV_INT_PARTICIPANT_SSH_USER_ID }}
+          EFM_DEV_INT_PARTICIPANT_SSH_KEY: ${{ secrets.EFM_DEV_INT_PARTICIPANT_SSH_KEY }}
+
+          EFM_TEST_URL: ${{ secrets.EFM_TEST_URL }}
+          EFM_TEST_TFS_HOST: ${{ secrets.EFM_TEST_TFS_HOST }}
+          EFM_TEST_EXTERNAL_USER_ID: ${{ secrets.EFM_TEST_EXTERNAL_USER_ID }}
+          EFM_TEST_EXTERNAL_PASSWORD: ${{ secrets.EFM_TEST_EXTERNAL_PASSWORD }}
+          EFM_TEST_PARTICIPANT_PASSWORD_USER_ID: ${{ secrets.EFM_TEST_PARTICIPANT_PASSWORD_USER_ID }}
+          EFM_TEST_PARTICIPANT_PASSWORD_PASSWORD: ${{ secrets.EFM_TEST_PARTICIPANT_PASSWORD_PASSWORD }}
+          EFM_TEST_PARTICIPANT_SSH_USER_ID: ${{ secrets.EFM_TEST_PARTICIPANT_SSH_USER_ID }}
+          EFM_TEST_PARTICIPANT_SSH_KEY: ${{ secrets.EFM_TEST_PARTICIPANT_SSH_KEY }}
+
+          EFM_STAGING_URL: ${{ secrets.EFM_STAGING_URL }}
+          EFM_STAGING_TFS_HOST: ${{ secrets.EFM_STAGING_TFS_HOST }}
+          EFM_STAGING_EXTERNAL_USER_ID: ${{ secrets.EFM_STAGING_EXTERNAL_USER_ID }}
+          EFM_STAGING_EXTERNAL_PASSWORD: ${{ secrets.EFM_STAGING_EXTERNAL_PASSWORD }}
+          EFM_STAGING_PARTICIPANT_PASSWORD_USER_ID: ${{ secrets.EFM_STAGING_PARTICIPANT_PASSWORD_USER_ID }}
+          EFM_STAGING_PARTICIPANT_PASSWORD_PASSWORD: ${{ secrets.EFM_STAGING_PARTICIPANT_PASSWORD_PASSWORD }}
+          EFM_STAGING_PARTICIPANT_SSH_USER_ID: ${{ secrets.EFM_STAGING_PARTICIPANT_SSH_USER_ID }}
+          EFM_STAGING_PARTICIPANT_SSH_KEY: ${{ secrets.EFM_STAGING_PARTICIPANT_SSH_KEY }}
+
+          EFM_OKTA_JH_EMAIL_ADDRESS: ${{ secrets.EFM_OKTA_JH_EMAIL_ADDRESS }}
+          EFM_OKTA_JH_EMAIL_PASSWORD: ${{ secrets.EFM_OKTA_JH_EMAIL_PASSWORD }}
+          EFM_OKTA_JH_EMAIL_TOTP_SECRET: ${{ secrets.EFM_OKTA_JH_EMAIL_TOTP_SECRET }}
+
+          EFM_EXTERNAL_GMAIL_ADDRESS: ${{ secrets.EFM_EXTERNAL_GMAIL_ADDRESS }}
+          EFM_EXTERNAL_GMAIL_APP_PASSWORD: ${{ secrets.EFM_EXTERNAL_GMAIL_APP_PASSWORD }}
+          EFM_EXTERNAL_OTP_EMAIL_SUBJECT_FILTER: ${{ secrets.EFM_EXTERNAL_OTP_EMAIL_SUBJECT_FILTER }}
+
+          EFM_SEND_REPORT_GMAIL: ${{ secrets.EFM_SEND_REPORT_GMAIL }}
+          EFM_SEND_REPORT_EMAIL_APP_PASSWORD: ${{ secrets.EFM_SEND_REPORT_EMAIL_APP_PASSWORD }}
+          EFM_SEND_REPORT_SUBJECT_PREFIX: ${{ secrets.EFM_SEND_REPORT_SUBJECT_PREFIX }}
+          EFM_SEND_REPORT_RECIPIENTS: ${{ secrets.EFM_SEND_REPORT_RECIPIENTS }}
+        run: ./VerifyEnvironments.pipeline.ps1
+
+      - name: Upload report
+        if: always()
+        # noinspection UndefinedAction
+        uses: actions/upload-artifact@v4
+        with:
+          # noinspection UndefinedParamsPresent
+          name: verification-reports
+          # noinspection UndefinedParamsPresent
+          path: reports/output/

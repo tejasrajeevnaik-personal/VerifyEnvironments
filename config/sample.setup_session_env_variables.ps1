@@ -71,13 +71,14 @@ DUMMY-STAGING-SSH-KEY
 '@
 
 # Okta user login config
-$env:EFM_JH_EMAIL_ADDRESS = "dummy_okta_user@example.com"
-$env:EFM_JH_EMAIL_PASSWORD = "dummy_okta_password"
+$env:EFM_OKTA_JH_EMAIL_ADDRESS = "dummy_okta_user@example.com"
+$env:EFM_OKTA_JH_EMAIL_PASSWORD = "dummy_okta_password"
+$env:EFM_OKTA_JH_EMAIL_TOTP_SECRET = "dummy_secret"
 
 # OTP retrieval for external user login config
-$env:EFM_GMAIL_ADDRESS = "dummyuser@gmail.com"
-$env:EFM_GMAIL_APP_PASSWORD = "dummy_app_password"
-$env:EFM_OTP_EMAIL_SUBJECT_FILTER = "EFM OTP Code Verification"
+$env:EFM_EXTERNAL_GMAIL_ADDRESS = "dummyuser@gmail.com"
+$env:EFM_EXTERNAL_GMAIL_APP_PASSWORD = "dummy_app_password"
+$env:EFM_EXTERNAL_OTP_EMAIL_SUBJECT_FILTER = "EFM OTP Code Verification"
 
 # Send report config
 $env:EFM_SEND_REPORT_GMAIL = "dummy_sender@gmail.com"
