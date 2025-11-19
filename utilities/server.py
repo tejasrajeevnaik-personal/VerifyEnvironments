@@ -1,3 +1,4 @@
+# noinspection PyPackageRequirements
 import paramiko
 import ssl
 from ftplib import FTP_TLS
@@ -78,7 +79,7 @@ class Server:
                                 private_key_text: Optional[str] = None,
                                 port: int = 22,
                                 timeout: int = 300,
-                                max_retries: int = 2,
+                                max_retries: int = 1,
                                 delay: int = 2) -> Tuple[bool, str]:
         paramiko_logger = logging.getLogger("paramiko")
         old_paramiko_level = paramiko_logger.getEffectiveLevel()
@@ -145,7 +146,7 @@ class Server:
                                  timeout: int = 300,
                                  passive: bool = True,
                                  cafile: Optional[str] = None,
-                                 max_retries: int = 2,
+                                 max_retries: int = 1,
                                  delay: int = 2) -> Tuple[bool, str]:
         message = None
         enable_debug = False

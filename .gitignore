@@ -1,8 +1,8 @@
 # Exclude project .env file
-config/.env
+configs/.env
 
 # Exclude setup env file
-config/setup_session_env_variables.ps1
+configs/setup_session_env_variables.ps1
 
 # Bytecode / cache
 __pycache__/
@@ -26,13 +26,13 @@ dist/
 *.egg-info/
 *.egg
 
-# Pytest / coverage / reports
+# Pytest / coverage / other reports
 .coverage
 htmlcov/
 pytest_cache/
 
 # Virtual environments
-venv/
+.venv/
 .env/
 .env*/
 

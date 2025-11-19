@@ -11,6 +11,7 @@ Write-Host ""
 # Validate all required env variables are present
 $requiredSecrets = @(
     "EFM_BROWSER",
+    "EFM_BROWSER_HEADLESS",
 
     "EFM_DEV_URL",
     "EFM_DEV_TFS_HOST",

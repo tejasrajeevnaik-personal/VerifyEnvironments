@@ -7,8 +7,8 @@ to the world
 #>
 
 # Browser
-$env:EFM_BROWSER = "chrome"
-
+$env:EFM_BROWSER = "edge"
+$env:EFM_BROWSER_HEADLESS = "true"
 
 # Environments config - DEV env
 $env:EFM_DEV_URL = "https://dev.example.com"

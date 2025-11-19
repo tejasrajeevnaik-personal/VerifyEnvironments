@@ -4,7 +4,7 @@ Write-Host "Important: This file should always reside in project root. If needed
 Write-Host ""
 
 # Setup session env variables. Once the tests complete, the env variables are auto-cleaned up
-$envScript = Join-Path $PSScriptRoot 'config\setup_session_env_variables.ps1'
+$envScript = Join-Path $PSScriptRoot 'configs\setup_session_env_variables.ps1'
 
 # Executes the envScript in the same PowerShell process so that the env variables are accessible to tests
 if (Test-Path $envScript)
@@ -14,7 +14,7 @@ if (Test-Path $envScript)
 }
 else
 {
-    Write-Host "ERROR: config\setup_session_env_variables.ps1 not found. Setting up env variables is mandatory."
+    Write-Host "ERROR: configs\setup_session_env_variables.ps1 not found. Setting up env variables is mandatory."
     Write-Host ""
     Write-Host "Press any key to close this window ..."
     $null = $Host.UI.RawUI.ReadKey("NoEcho,IncludeKeyDown")

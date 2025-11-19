@@ -42,6 +42,7 @@ def __get_value(env_variable_name: str, default_value: str = None) -> str:
 class __Config:
     # Browser
     browser: str
+    browser_headless: bool
 
     # Environments config - DEV env
     dev_url: Secret
@@ -107,6 +108,7 @@ Config = __Config(
     # Browser
     browser=__get_value("EFM_BROWSER",
                         "chrome"),
+    browser_headless=__get_value("EFM_BROWSER_HEADLESS", "false").lower() == "true",
 
     # Environments config - DEV env
     dev_url=__get_secret("EFM_DEV_URL"),

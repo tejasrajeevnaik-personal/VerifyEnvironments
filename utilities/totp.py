@@ -1,7 +1,7 @@
 import pyotp
 
-# Import project config
-from config.config import Config
+# Import project configs
+from configs.config import Config
 
 # Import project utilities
 from utilities.logger import get_logger

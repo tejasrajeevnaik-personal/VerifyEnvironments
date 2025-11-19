@@ -1,8 +1,8 @@
 import pytest
 from time import sleep
 
-# Import project config
-from config.config import Config
+# Import project configs
+from configs.config import Config
 
 # Import project utilities
 from utilities.driver_factory import DriverFactory

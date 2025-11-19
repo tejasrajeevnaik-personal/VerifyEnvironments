@@ -20,12 +20,12 @@ class OTP:
                                 timeout: int = 120,
                                 poll_interval: float = 2.0,
                                 mark_all_read: bool = True) -> Optional[str]:
-        # Set logger level to DEBUG for this method only
         old_level = logger.getEffectiveLevel()
-        logger.setLevel(logging.DEBUG)
+        # Uncomment the below line to set logger level to DEBUG for this method only
+        # logger.setLevel(logging.DEBUG)
 
         # Wait for OTP to arrive
-        time.sleep(45)
+        time.sleep(30)
 
         otp_pattern = re.compile(r"\b\d{6}\b")
         end_time = time.time() + timeout
@@ -122,9 +122,9 @@ class OTP:
                 if mark_all_read:
                     try:
                         M.store("1:*", '+FLAGS', '\\Seen')
-                        logger.info("All emails marked as read.")
+                        logger.debug("All emails marked as read.")
                     except Exception as e:
-                        logger.warning("Could not mark emails as read: %s", e)
+                        logger.debug("Could not mark emails as read: %s", e)
                 # noinspection PyBroadException
                 try:
                     M.close()

@@ -6,8 +6,8 @@ from email.message import EmailMessage
 from pathlib import Path
 from typing import List, Dict, Tuple, Any
 
-# Import project config
-from config.config import Config
+# Import project configs
+from configs.config import Config
 
 # Import project utilities
 from utilities.logger import setup_logger, get_logger
