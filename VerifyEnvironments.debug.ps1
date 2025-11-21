@@ -19,7 +19,11 @@ $VSCodePath = "C:\Users\YourUser\AppData\Local\Programs\Microsoft VS Code\Code.e
 $VSTSPath = "C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\devenv.exe"
 
 # Setup session env variables
-. "$PSScriptRoot\config\setup_session_env_variables.ps1"
+. "$PSScriptRoot\configs\setup_session_env_variables.ps1"
+Write-Host "Env variables setup completed."
+Write-Host ""
+Write-Host "Opening IDE in 5 seconds ..."
+Start-Sleep -Seconds 5
 
 # Open selected IDE
 switch ($IDE)
