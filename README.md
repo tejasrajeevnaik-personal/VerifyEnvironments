@@ -1,3 +1,10 @@
+![CI](https://github.com/tejasrajeevnaik-personal/VerifyEnvironments/actions/workflows/verify-environments.yml/badge.svg)
+![Python Version](https://img.shields.io/badge/Python-3.10%2B-blue.svg)
+![Code Style: flake8](https://img.shields.io/badge/Code%20Style-flake8-orange.svg)
+![Last Commit](https://img.shields.io/github/last-commit/tejasrajeevnaik-personal/VerifyEnvironments.svg)
+[![License: CC BY-NC 4.0](https://img.shields.io/badge/License-CC--BY--NC%204.0-lightgrey.svg)](https://creativecommons.org/licenses/by-nc/4.0/)
+![Study Only](https://img.shields.io/badge/Usage-Study%20Only-red.svg)
+
 # Verify Environments
 
 *(An automated Login Verification Tool built in Python)*
@@ -202,14 +209,22 @@ VerifyEnvironments/
 │
 ├── pytest.ini                                          # Central Pytest configuration (markers, test discovery, addopts)
 ├── requirements.txt                                    # Dependency packages for local installs and CI/CD runs
-├── README.md                                           # Project documentation
 │
 ├── .gitattributes                                      # Used to influence GitHub’s Linguist so the project is recognized as a Python repository
 ├── .gitignore                                          # Ensures secrets, generated files, and environment folders are not committed
 │
+├── .pre-commit-config.yaml                             # Defines automated pre-commit checks (linting, security, formatting)
+├── .flake8                                             # Central flake8 configuration for consistent code style (run: `flake8 .`)
+├── .bandit                                             # Security scanner configuration for Python code (run: `bandit -r .`)
+│
 ├── VerifyEnvironments.debug.ps1                        # Entry script for local debugging (creates session env vars + opens IDE)
 ├── VerifyEnvironments.run.ps1                          # Runs the entire suite locally and sends report
-└── VerifyEnvironments.pipeline.ps1                     # Entrypoint for CI/CD tests execution
+├── VerifyEnvironments.pipeline.ps1                     # Entrypoint for CI/CD tests execution
+│
+├── README.md                                           # Main project documentation and usage guide
+├── CONTRIBUTING.md                                     # Guidelines for contributing to the project
+│
+└── LICENSE                                             # CC BY-NC 4.0 license (non-commercial use only)
 ```
 
 ## 🔐 Secrets Flow
@@ -229,8 +244,8 @@ flowchart LR
 
 ## 🤝 Contributing
 
-Open for enhancements.
+Contributions and enhancements are welcome.
 
 ## 📄 License
 
-MIT License.
+This project is licensed under the **Creative Commons Attribution–NonCommercial 4.0 International (CC BY-NC 4.0)** License.

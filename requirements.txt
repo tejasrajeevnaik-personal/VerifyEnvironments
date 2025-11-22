@@ -23,6 +23,11 @@ charset-normalizer==3.4.4
 idna==3.11
 urllib3==2.5.0
 
+# Pre-commit, Linter (flake8), SAST (bandit)
+pre_commit==4.4.0
+flake8==7.3.0
+bandit==1.9.1
+
 # Optional but better to include
 # Pytest / plugin support libraries (indirect)
 iniconfig==2.3.0            # Pytest config loader

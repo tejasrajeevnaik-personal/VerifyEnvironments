@@ -58,13 +58,13 @@ def okta_login(login, env, url):
     login.click_okta_button()
     if login.is_logged_in(10):
         assert True
-        logger.info("Okta login to %s environment succeeded.",env)
+        logger.info("Okta login to %s environment succeeded.", env)
         return
     if login.is_okta_logged_in(10):
         login.click_first_select_button()
         if login.is_logged_in(10):
             assert True
-            logger.info("Okta login to %s environment succeeded.",env)
+            logger.info("Okta login to %s environment succeeded.", env)
             return
         else:
             assert_message = f"Okta login to {env} environment failed - graceful landing failed."
@@ -93,7 +93,7 @@ def okta_login(login, env, url):
     login.click_first_select_button()
     if login.is_logged_in(120):
         assert True
-        logger.info("Okta login to %s environment succeeded.",env)
+        logger.info("Okta login to %s environment succeeded.", env)
         sleep(1)  # Wait for end user to see
         return
     else:

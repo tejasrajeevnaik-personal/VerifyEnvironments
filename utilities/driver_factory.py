@@ -28,7 +28,7 @@ class DriverFactory:
             # noinspection PyBroadException
             try:
                 driver.quit()
-            except:
+            except Exception:
                 pass
 
     @staticmethod
