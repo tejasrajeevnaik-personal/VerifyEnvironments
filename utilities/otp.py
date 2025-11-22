@@ -1,9 +1,9 @@
-import logging
 import re
 import time
 import imaplib
 import email
 from typing import Optional
+# import logging
 
 # Import project utilities
 from utilities.logger import get_logger

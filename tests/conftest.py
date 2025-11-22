@@ -1,9 +1,13 @@
-import os, re, base64, tempfile
-from datetime import datetime
+import os
+import re
+import base64
+import tempfile
 import pytest
+from datetime import datetime
 
 # Import project logger
-from utilities.logger import setup_logger, teardown_logger
+from utilities.logger import setup_logger
+# from utilities.logger import teardown_logger
 
 RUN_TS = datetime.now().strftime("%Y%m%d_%H%M%S")
 

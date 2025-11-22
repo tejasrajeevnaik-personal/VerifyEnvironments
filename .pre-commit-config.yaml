@@ -2,13 +2,13 @@
 # To uninstall pre commit hooks, run 'pre-commit uninstall'
 
 repos:
-  # Hook not yet installed
+  # Hook installed locally
   - repo: https://github.com/pycqa/flake8
     rev: 6.1.0
     hooks:
       - id: flake8
 
-  # Hook not yet installed
+  # Hook not yet installed locally
   - repo: https://github.com/PyCQA/bandit
     rev: 1.7.7
     hooks:
