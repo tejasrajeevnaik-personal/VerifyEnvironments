@@ -1,4 +1,4 @@
-![CI](https://github.com/tejasrajeevnaik-personal/VerifyEnvironments/actions/workflows/verify-environments.yml/badge.svg)
+[![CI](https://github.com/tejasrajeevnaik-personal/VerifyEnvironments/actions/workflows/verify-environments.yml/badge.svg)](https://github.com/tejasrajeevnaik-personal/VerifyEnvironments/actions)
 ![Python Version](https://img.shields.io/badge/Python-3.10%2B-blue.svg)
 ![Code Style: flake8](https://img.shields.io/badge/Code%20Style-flake8-orange.svg)
 ![Last Commit](https://img.shields.io/github/last-commit/tejasrajeevnaik-personal/VerifyEnvironments.svg)
@@ -11,8 +11,10 @@
 
 ## 🎯 Purpose
 
-The goal of this project is to eliminate repetitive and time-consuming manual checks and ensure that logins across all
-test environments remain healthy and functional at all times.
+The purpose of this project is:
+
+- to ensure that logins across all environments remain healthy and functional at all times
+- to eliminate repetitive, time-consuming and error-prone manual checks
 
 ## 🧩 Overview
 
@@ -28,47 +30,21 @@ Each environment is validated against five types of logins:
 
 ## 🚀 Key Features
 
-- Flixible configuration with utmost importance to safeguarding secrets
 - Automated execution via a single double-clickable PowerShell script
 - Setup env variables and IDE for local debug sessions via a single double-clickable PowerShell script
 - Automated TOTP retrieval for SSO login
 - Automated OTP retrieval from Gmail for external user login
-- Automated Server logins SFTP and FTPS connections
-- Automated HTML report generation with failure screenshots
-- Automated email reporting with intuative and informative summary + HTML report attached
+- Automated Server logins with SFTP and FTPS connections
+- Automated HTML report generation with failure screenshots for UI tests
+- Automated email reporting with informative summary and attached HTML report
+- Flixible configuration with utmost importance to safeguarding secrets
 - CI/CD ready via GitHub workflows and a single PowerShell script
-
-## 📘 Learnings
-
-- 💪 Personal Growth
-    - Identifying a genuine project problem — repetitive manual checks that were slow and error-prone
-    - Visualizing the end-to-end solution and planning the approach (an exiting idea 💡)
-    - Breaking the work into a detailed 3-week timeline with clear goals
-    - Researching tricky issues and systematically solving them
-    - Continuously improving code structure for better modularity and efficiency
-    - Working outside office hours to complete the project faster and setting high expectations for myself
-    - Satisfaction of solving a real project pain point and delivering a solid value-add
-
-
-- 🧠 Technical Growth
-    - Gained knowledge across the project tech stack: Python, unittest, pytest, Selenium, PowerShell, Batch scripting,
-      paramiko, ssl, ftplib, smtplib, email, Git, and GitHub workflows YAML
-    - Improved Selenium skills — identifying reliable locators and using headless browser automation
-    - Gained confidence in automating complex login flows: SSO, TOTP/OTP, SFTP (password + SSH key) and FTPS
-    - Built solid hands-on experience with secure secret management using temporary session-based environment variables
-    - Learned to generate simple yet effective report using JSON output file
-    - Gained confidence in designing reusable utilities, method layers, and clean Pytest tests
-    - Improved architectural thinking with design patterns such as Factory, Page Object Model (POM), BDD-style
-      structuring,
-      and Template Method
-    - Gained basic understanding of CI/CD workflows through GitHub Actions
-    - ⭐ **Gained confidence in designing and delivering an end-to-end automation system independently**
 
 ## 🛠️ Initial Setup
 
 ### **Step 1: Install Python and IDE**
 
-- Install the latest Python version (example: **Python 3.14**).
+- Install the latest Python version (example: Python 3.14).
 - Add Python and Scripts paths to your system environment variable - Path:
     - Python path: `C:\Program Files\Python314`
     - Scripts path: `C:\Program Files\Python314\Scripts`
@@ -83,7 +59,7 @@ Clone the repo locally using Git commands or your IDE.
 
 ### **Step 3: Install Project Requirements**
 
-- Open a **Cmd / PowerShell** prompt and navigate to `ProjectRoot`.  
+- Open a Cmd / PowerShell prompt and navigate to `ProjectRoot`.  
   (IDE terminal can also be used.)
 - Run:
   ```bash
@@ -98,13 +74,18 @@ Clone the repo locally using Git commands or your IDE.
   ```
   setup_session_env_variables.ps1
   ```
-- This file is **git-ignored**, so it is safe to assign **secret and non-secret values** here. Make sure **all variables
-  ** are assigned.
+- This file is **git-ignored**, so it is safe to assign **secret and non-secret values** here. Make sure **all variables** 
+  are assigned.
   ![setup_session_env_variables.png](docs/images/setup_session_env_variables.png)
-- This script creates **session environment variables** which are required for local debugging and running tests.
+- This script creates **session environment variables** which are required for:
+    - debugging through IDE locally
+    - running tests through IDE locally
+    - running tests independent of IDE locally
 - 🔍 Quick concept: Session vs User Environment Variables
   **Session variables** → Only available to the current terminal/IDE session (**more secure**)
-  **User variables** → Persist for the logged-in user across the system
+  **User variables** → Persist for the logged-in user across the system (**not recommended**)
+- 🔐 Secrets flow:
+  ![secrets_flow.png](docs/images/secrets_flow.png)
 
 ### **Step 5: Configure Local Debugging**
 
@@ -116,8 +97,7 @@ Clone the repo locally using Git commands or your IDE.
     - Create session-level environment variables
     - Open your IDE with correct access to those variables
 - 👉 **Always open your IDE using this debug script** so that debugging and IDE test execution have access to the
-  required
-  env variables.
+  required env variables.
 
 ### **Step 6: Run Tests Locally independent of IDE**
 
@@ -133,8 +113,7 @@ Clone the repo locally using Git commands or your IDE.
     - Email the report to the recipients configured in `setup_session_env_variables.ps1`
     - Save all artifacts (HTML + JSON reports) under `ProjectRoot/reports`
 - 👉 The run script does *not* use the debug session variables from Step 5. It creates its own temporary session
-  environment
-  variables, and cleans them up after execution.
+  environment variables, and cleans them up after execution.
 - 📩 Email report includes:
     - A quick summary of Total, Passed, Failed, and Rerun tests
     - A clear, tabular breakdown of results per environment
@@ -223,24 +202,37 @@ VerifyEnvironments/
 │
 ├── README.md                                           # Main project documentation and usage guide
 ├── CONTRIBUTING.md                                     # Guidelines for contributing to the project
+├── LEARNING.md                                         # Knowledge and experince gained across the project
 │
 └── LICENSE                                             # CC BY-NC 4.0 license (non-commercial use only)
 ```
 
-## 🔐 Secrets Flow
+## 📘 Learnings
 
-```mermaid
-flowchart LR
-    A["PowerShell script<br/>setup_session_env_variables.ps1<br/>(git ignored, contains secrets)"]
-    A --> B["Sets up<br/>Session env variables<br/>(session scoped, in-memory only)"]
-    B --> C["Tests / IDE consume secrets"]
-    C --> D["Execution completes / IDE closed<br/>(Env variables disposed, secrets vanish)"]
-%% Blue theme, squared corners, larger blocks
-    classDef blueBlock fill: #BBDEFB, stroke: #0D47A1, stroke-width: 2px, color: #000, font-size: 16px;
+- 💪 Personal Growth
+    - Identifying a genuine project problem — repetitive manual checks that were slow and error-prone
+    - Visualizing the end-to-end solution and planning the approach (an exiting idea 💡)
+    - Breaking the work into a detailed 3-week timeline with clear goals
+    - Researching tricky issues and systematically solving them
+    - Continuously improving code structure for better modularity and efficiency
+    - Working outside office hours to complete the project faster and setting high expectations for myself
+    - Satisfaction of solving a real project pain point and delivering a solid value-add
 
-%% Apply to all nodes
-    class A,B,C,D blueBlock;
-```
+
+- 🧠 Technical Growth
+    - Gained knowledge across the project tech stack: Python, unittest, pytest, Selenium, PowerShell, Batch scripting,
+      paramiko, ssl, ftplib, smtplib, email, Git, and GitHub workflows YAML
+    - Improved Selenium skills — identifying reliable locators and using headless browser automation
+    - Gained confidence in automating complex login flows: SSO, TOTP/OTP, SFTP (password + SSH key) and FTPS
+    - Built solid hands-on experience with secure secret management using temporary session-based environment variables
+    - Learned to generate simple yet effective report using JSON output file
+    - Gained confidence in designing reusable utilities, method layers, and clean Pytest tests
+    - Improved architectural thinking with design patterns such as Factory, Page Object Model (POM), BDD-style
+      structuring, and Template Method
+    - Gained basic understanding of CI/CD workflows through GitHub Actions
+    - Gained hands-on experience with configuring Dependabot, setting up GitHub secret scanning, integrating
+      GitGuardian, strengthening security using Bandit (SAST), and applying code-quality practices with flake8
+    - ⭐ **Gained confidence in designing and delivering an end-to-end automation system independently**
 
 ## 🤝 Contributing
 
@@ -248,4 +240,5 @@ Contributions and enhancements are welcome.
 
 ## 📄 License
 
-This project is licensed under the **Creative Commons Attribution–NonCommercial 4.0 International (CC BY-NC 4.0)** License.
+This project is licensed under the **Creative Commons Attribution–NonCommercial 4.0 International (CC BY-NC 4.0)**
+License.
