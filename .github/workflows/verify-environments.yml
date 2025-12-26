@@ -2,8 +2,8 @@ name: Verify Environments
 
 on:
   # Runs every 6 hours
-  schedule:
-    - cron: "0 */6 * * *"
+  # schedule:
+  #  - cron: "0 */6 * * *"
 
   # Allows manual trigger
   workflow_dispatch:
